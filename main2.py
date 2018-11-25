@@ -1,4 +1,5 @@
 import numpy as np
+np.random.seed(1337) 
 from keras.models import Sequential
 from keras.layers import Conv2D
 from keras.layers import  MaxPooling2D
@@ -38,7 +39,7 @@ train_datagen = ImageDataGenerator(rescale=1. / 255,
                                    zoom_range=0.2,
                                    horizontal_flip=True)
 
-training_set = train_datagen.flow_from_directory(r'C:\Users\User\Desktop\data\train',
+training_set = train_datagen.flow_from_directory(r'C:\Users\ARANYA\Desktop\data\train',
                                                  target_size=(64, 64),
                                                  batch_size=64,
                                                  class_mode='categorical')
@@ -47,37 +48,33 @@ training_set = train_datagen.flow_from_directory(r'C:\Users\User\Desktop\data\tr
 ##################################
 from keras.preprocessing import image
 from keras.models import load_model
-model = load_model('currnencymodel.h5')
+model = load_model('tumormodel.h5')
 classifier = create_model()
 
-test_image = image.load_img(r'C:\Users\User\Desktop\data\predict\L1\test857.jpg', target_size = (64, 64))
+test_image = image.load_img(r'C:\Users\ARANYA\Desktop\data\predict\m1.jpg', target_size = (64, 64))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis = 0)
 
-#predict the result
 result = classifier.predict(test_image)
 
-print((result))
-
-arr=np.array(result).tolist()
-#print(arr)
+#print(result)
+#ans=np.array(result).tolist()
+maxi=10000.0
 ch=0
-cnt=0
-ans=1
-#for x in arr:
-#    ch=ch+1
- #   print(type(x))
- #   if cnt >= int(x):
-#        ans = ch
- #       cnt=x
-#print("ans: ",ans)
+ans2=1
+b = result.ravel()
+print(b)
 
 
 
-
-
-
-
-
-
-########################
+for x in b :
+    
+    ch=ch+1 
+    if (float(1.0-x)<=maxi):
+        
+        maxi=float(1.0-x)
+        print("maxi: ",maxi)
+        ans2=ch
+        
+print("Ans: ",ans2)        
+print("Finished")
