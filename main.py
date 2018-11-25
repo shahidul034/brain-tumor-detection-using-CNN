@@ -4,7 +4,7 @@ from keras.layers import MaxPooling2D
 from keras.layers import Flatten
 from keras.layers import Dense
 
-
+print("hello")
 classifier = Sequential()
 
 
@@ -38,33 +38,20 @@ train_datagen = ImageDataGenerator(rescale=1. / 255,
 
 test_datagen = ImageDataGenerator(rescale=1. / 255)
 
-training_set = train_datagen.flow_from_directory(r'C:\Users\User\Desktop\data\train',
+training_set = train_datagen.flow_from_directory(r'C:\Users\ARANYA\Desktop\data\train',
                                                  target_size=(64, 64),
                                                  batch_size=64,
                                                  class_mode='categorical')
 
-test_set = test_datagen.flow_from_directory(r'C:\Users\User\Desktop\data\test',
+test_set = test_datagen.flow_from_directory(r'C:\Users\ARANYA\Desktop\data\test',
                                             target_size=(64, 64),
                                             batch_size=32,
                                             class_mode='categorical')
 
 classifier.fit_generator(training_set,
                          steps_per_epoch=200,
-                         epochs=10,
+                         epochs=30,
                          validation_data=test_set,
                          validation_steps = 715 / 64 )
-classifier.save('currnencymodel.h5');
-
-import numpy as np
-from keras.preprocessing import image
-
-##test_image = image.load_img(r'C:\Users\User\Desktop\Class 3.2\Extra\new Code\dataset\Single prediction\fake note_9.jpg', target_size=(64, 64))
-##test_image = image.img_to_array(test_image)
-##test_image = np.expand_dims(test_image, axis=0)
-##result = classifier.predict(test_image)
-##training_set.class_indices
-#if result[0][0] == 1:
- ##   prediction = 'Real'
-#else:
- #   prediction = 'Fake'
-#print("ans: ",prediction)
+classifier.save('tumormodel.h5');
+print("finish")
